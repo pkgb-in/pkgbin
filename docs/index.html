@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>pkgbin - package cache and traffic insights</title>
+		<meta
+			name="description"
+			content="pkgbin is a self-hosted package cache for npm, PyPI, and RubyGems with fast downloads and usage analytics."
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+			crossorigin="anonymous"
+		/>
+		<style>
+			.logo-mark {
+				width: 40px;
+				height: 40px;
+				object-fit: contain;
+			}
+		</style>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+			<div class="container">
+				<a class="navbar-brand d-flex align-items-center gap-2" href="https://github.com/pkgb-in/pkgbin" rel="noreferrer">
+					<img class="logo-mark" src="../static/logo.svg" alt="pkgbin logo" />
+					<span class="fw-semibold">pkgbin</span>
+				</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#pkgbinNav"
+					aria-controls="pkgbinNav"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="pkgbinNav">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+						<li class="nav-item"><a class="nav-link" href="#workflow">Workflow</a></li>
+						<li class="nav-item"><a class="nav-link" href="#deploy">Deploy</a></li>
+						<li class="nav-item"><a class="nav-link" href="#stats">Stats</a></li>
+					</ul>
+					<div class="d-flex gap-2">
+						<a class="btn btn-outline-primary" href="#deploy">Quick deploy</a>
+						<a class="btn btn-primary" href="https://github.com/pkgb-in/pkgbin" rel="noreferrer">
+							View on GitHub
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<header class="py-5">
+			<div class="container">
+				<div class="row align-items-center g-4">
+					<div class="col-lg-7">
+						<p class="text-uppercase text-secondary fw-semibold mb-2">Self-hosted package edge</p>
+						<h1 class="display-4 fw-semibold">
+							Cache npm, PyPI, and RubyGems with a faster, smarter edge.
+						</h1>
+						<p class="lead text-secondary">
+							pkgbin keeps your registries close to your CI and dev teams. It
+							caches downloads, stores traffic insights, and helps you keep
+							dependency supply chains steady even when public registries are not.
+						</p>
+						<div class="d-flex flex-wrap gap-2">
+							<a class="btn btn-primary" href="https://github.com/pkgb-in/pkgbin" rel="noreferrer">
+								View on GitHub
+							</a>
+							<a class="btn btn-outline-secondary" href="#deploy">Quick deploy</a>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="card shadow-sm">
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-baseline mb-3">
+									<span class="text-uppercase text-secondary small">Cache hit rate</span>
+									<span class="h4 mb-0">94%</span>
+								</div>
+								<div class="d-flex justify-content-between align-items-baseline mb-3">
+									<span class="text-uppercase text-secondary small">Avg build speedup</span>
+									<span class="h4 mb-0">2.6x</span>
+								</div>
+								<div class="d-flex justify-content-between align-items-baseline">
+									<span class="text-uppercase text-secondary small">Supported ecosystems</span>
+									<span class="h4 mb-0">3</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main class="py-5">
+			<section class="container" id="features">
+				<h2 class="mb-4">Why pkgbin</h2>
+				<div class="row g-3">
+					<div class="col-md-4">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">Ultra-local cache</h5>
+								<p class="card-text text-secondary">
+									Serve packages from your own infrastructure with nginx fronting
+									a Go-powered cache.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">Traffic intelligence</h5>
+								<p class="card-text text-secondary">
+									Record package access patterns and surface trends for audits,
+									forecasts, and cleanup plans.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">Registry-safe</h5>
+								<p class="card-text text-secondary">
+									Store upstream metadata and artifacts locally so builds remain
+									stable during outages.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="container mt-5" id="workflow">
+				<h2 class="mb-4">How it works</h2>
+				<div class="row g-3">
+					<div class="col-md-6">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">1. Proxy your registries</h5>
+								<p class="card-text text-secondary">
+									Point npm, pip, and gem at pkgbin. Requests stream through the
+									cache, and metadata is mirrored locally.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">2. Persist every access</h5>
+								<p class="card-text text-secondary">
+									Downloads are logged to Postgres with a built-in migration set
+									for immediate analytics.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">3. Serve from the edge</h5>
+								<p class="card-text text-secondary">
+									Cached packages are delivered by nginx for high throughput,
+									protecting upstream registries.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">4. Monitor and purge</h5>
+								<p class="card-text text-secondary">
+									See cache stats, refresh data, and purge stale artifacts from a
+									single dashboard endpoint.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="container mt-5" id="deploy">
+				<h2 class="mb-4">Deploy in minutes</h2>
+				<div class="row g-3">
+					<div class="col-md-6">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">Docker compose starter</h5>
+								<p class="card-text text-secondary">Everything ships with a ready-to-run compose stack.</p>
+								<code class="d-block bg-light border rounded p-2">docker compose up --build</code>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">Environment ready</h5>
+								<p class="card-text text-secondary">Configure upstreams, storage, and database in one place.</p>
+								<code class="d-block bg-light border rounded p-2">PKGBIN_DATA_DIR=/var/pkgbin</code>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="container mt-5" id="stats">
+				<h2 class="mb-4">Live cache stats</h2>
+				<div class="card border-primary">
+					<div class="card-body">
+						<h5 class="card-title">Keep a pulse on dependency usage</h5>
+						<p class="card-text text-secondary">
+							Track top packages, hit rates, and registry health through the
+							built-in stats endpoint. Export to your monitoring stack or keep
+							it simple with the built-in dashboard.
+						</p>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer class="border-top py-4">
+			<div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+				<div>pkgbin - cache, observe, and protect package downloads.</div>
+				<div>
+					Built for self-hosted teams.
+					<a class="ms-2" href="https://github.com/pkgb-in/pkgbin#readme" rel="noreferrer">Docs</a>
+					<span class="mx-1">|</span>
+					<a href="https://github.com/pkgb-in/pkgbin/blob/main/LICENSE" rel="noreferrer">Apache-2.0 license</a>
+					<span class="mx-1">|</span>
+					<a href="https://github.com/pkgb-in/pkgbin/issues" rel="noreferrer">Issues</a>
+				</div>
+			</div>
+		</footer>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
