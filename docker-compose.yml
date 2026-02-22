@@ -1,0 +1,116 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: pkgbin_postgres
+    environment:
+      POSTGRES_USER: pkgbin_user
+      POSTGRES_PASSWORD: pkgbin_password
+      POSTGRES_DB: pkgbin_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      # - ./db/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pkgbin_user -d pkgbin_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  init:
+    image: migrate/migrate:v4.17.1
+    container_name: pkgbin_init
+    environment:
+      - PGPASSWORD=pkgbin_password
+    entrypoint:
+      - "/bin/sh"
+      - "/init-db.sh"
+    volumes:
+      - ./db/migrations:/migrations
+      - ./scripts/init-db.sh:/init-db.sh:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  npm_cache:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pkgbin_npm
+    command: /app/npm_cache
+    ports:
+      - "8081:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=pkgbin_user
+      - DB_PASSWORD=pkgbin_password
+      - DB_NAME=pkgbinnpm
+      - DB_PORT=5432
+    volumes:
+      - ./npm_cache_data:/app/npm_cache_data # For local testing
+    depends_on:
+      postgres:
+        condition: service_healthy
+      init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  ruby_cache:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pkgbin_ruby
+    command: /app/ruby_cache
+    ports:
+      - "8082:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=pkgbin_user
+      - DB_PASSWORD=pkgbin_password
+      - DB_NAME=pkgbinruby
+      - DB_PORT=5432
+    volumes:
+      - ./gem_cache_data:/app/gem_cache_data # For local testing
+    depends_on:
+      postgres:
+        condition: service_healthy
+      init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  python_cache:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pkgbin_python
+    command: /app/python_cache
+    ports:
+      - "8083:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=pkgbin_user
+      - DB_PASSWORD=pkgbin_password
+      - DB_NAME=pkgbinpython
+      - DB_PORT=5432
+    volumes:
+      - ./pypi_cache_data:/app/pypi_cache_data # For local testing
+    depends_on:
+      postgres:
+        condition: service_healthy
+      init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: pkgbin_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - npm_cache
+      - ruby_cache
+      - python_cache
+    restart: unless-stopped

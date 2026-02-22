@@ -1,0 +1,22 @@
+# Ignore local cache directories
+npm_cache/
+gem_cache/
+
+# Ignore Git files
+.git
+.gitignore
+
+# Ignore Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Ignore temporary files
+*.log
+*.tmp
+.DS_Store
+
+# Ignore local development files
+.env
+.vscode
+.idea

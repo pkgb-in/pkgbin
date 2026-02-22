@@ -1,0 +1,19 @@
+
+.DS_Store
+*.log
+*.tmp
+*.cache
+*.bak
+*.swp
+*.swo
+*.env
+*.env.local
+*.env.*.local
+
+# Define the cache directories for npm and gem
+/gem_cache
+/npm_cache
+/gem_cache_data
+/npm_cache_data
+/pypi_cache_data
+/postgres_data
