@@ -1,5 +1,5 @@
 <svg width="140" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="#FFFFFF"/>
+  <rect width="100%" height="100%" fill="none"/>
 
   <!-- Hexagon -->
   <polygon points="70,20 120,50 120,110 70,140 20,110 20,50"
